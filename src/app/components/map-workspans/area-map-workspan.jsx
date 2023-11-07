@@ -11,6 +11,7 @@ export const AreaMapWorkspan = () => {
   const isAreaSideNavOpen = useSelector(
     (state) => state.mapSelectorReducer.isAreaSideNavOpen
   );
+  // console.log("call 3");
 
   const viewRef = useRef(null);
   return (

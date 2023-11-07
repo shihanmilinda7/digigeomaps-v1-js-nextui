@@ -25,32 +25,13 @@ const TopSideNavbar = () => {
   }
 
   const dispatch = useDispatch();
-  const router = useRouter();
 
-  const [activeButton, setActiveButton] = useState("Area");
-
-  const selectedMapWorkspan = useSelector(
+  const selectedMap = useSelector(
     (state) => state.mapSelectorReducer.selectedMap
   );
-  const currentSearchString = useSelector(
-    (state) => state.mapSelectorReducer.currentSearchString
-  );
-
-  useEffect(() => {
-    console.log("asdas", currentSearchString);
-    router.push(currentSearchString);
-    // dispatch(setSelectedMap(selectedValue));
-  }, [currentSearchString]);
-
-  useEffect(() => {
-    setActiveButton(selectedMapWorkspan);
-  }, [selectedMapWorkspan]);
 
   const mapButtonHandler = async (selectedValue) => {
-    setActiveButton(selectedValue);
     dispatch(setSelectedMap(selectedValue));
-
-    // router.push("?t=" + selectedValue);
   };
 
   return (
@@ -58,25 +39,25 @@ const TopSideNavbar = () => {
       <div className="flex flex-col w-full gap-1">
         <div className="flex gap-2 w-full">
           <Button
-            color={activeButton == "Area" ? "primary" : "default"}
+            color={selectedMap == "area" ? "primary" : "default"}
             className={`w-full flex gap-1`}
-            onClick={() => mapButtonHandler("Area")}
+            onClick={() => mapButtonHandler("area")}
           >
             <MdLocationOn className="h-4 w-4" />
             Area
           </Button>
           <Button
-            color={activeButton == "Company" ? "primary" : "default"}
+            color={selectedMap == "company" ? "primary" : "default"}
             className={`w-full flex gap-1`}
-            onClick={() => mapButtonHandler("Company")}
+            onClick={() => mapButtonHandler("company")}
           >
             <BsFillBuildingsFill className="h-4 w-4" />
             Company
           </Button>
           <Button
-            color={activeButton == "Commodity" ? "primary" : "default"}
+            color={selectedMap == "commodity" ? "primary" : "default"}
             className={`w-full flex gap-1`}
-            onClick={() => mapButtonHandler("Commodity")}
+            onClick={() => mapButtonHandler("commodity")}
           >
             <AiTwotoneGold className="h-4 w-4" />
             Commodity
@@ -85,7 +66,7 @@ const TopSideNavbar = () => {
         <div>
           <div
             style={{
-              display: activeButton === "Area" ? "block" : "none",
+              display: selectedMap === "area" ? "block" : "none",
             }}
           >
             <MapSearchInputField
@@ -108,7 +89,7 @@ const TopSideNavbar = () => {
             </datalist>
           </div>
           <div
-            style={{ display: activeButton === "Company" ? "block" : "none" }}
+            style={{ display: selectedMap === "company" ? "block" : "none" }}
           >
             <MapSearchInputField
               label=""
@@ -130,7 +111,7 @@ const TopSideNavbar = () => {
           </div>
           <div
             style={{
-              display: activeButton === "Commodity" ? "block" : "none",
+              display: selectedMap === "commodity" ? "block" : "none",
             }}
           >
             <MapSearchInputField

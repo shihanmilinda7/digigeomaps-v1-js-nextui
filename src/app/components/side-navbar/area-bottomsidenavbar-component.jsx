@@ -8,7 +8,7 @@ import { GiEarthAmerica } from "react-icons/gi";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setIsAreaSideNavOpen } from "../../../store/map-selector/map-selector-slice";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const AreaBottomSideNavbar = () => {
   let pathname = "";
@@ -29,23 +29,15 @@ const AreaBottomSideNavbar = () => {
     (state) => state.mapSelectorReducer.isAreaSideNavOpen
   );
 
-  const currentSearchString = useSelector(
-    (state) => state.mapSelectorReducer.currentSearchString
-  );
-  // const [isAreaSideNavOpen, setOpen] = useState(isAreaSideNavOpen);
+  // const [open, setOpen] = useState();
 
-  useEffect(() => {
-    console.log("dsdsdfsd", isAreaSideNavOpen);
-    router.push(currentSearchString);
-  }, [currentSearchString]);
-
-  useEffect(() => {
-    console.log("!isAreaSideNavOpen", isAreaSideNavOpen);
-  }, [isAreaSideNavOpen]);
+  // useEffect(() => {
+  //   setOpen(Boolean(isAreaSideNavOpen));
+  // }, [isAreaSideNavOpen]);
 
   const collapsibleBtnHandler = () => {
-    // setOpen(!isAreaSideNavOpen);
-    dispatch(setIsAreaSideNavOpen(!isAreaSideNavOpen));
+    const tmpValue = String(isAreaSideNavOpen).toLowerCase() === "true";
+    dispatch(setIsAreaSideNavOpen(!tmpValue));
   };
 
   return (

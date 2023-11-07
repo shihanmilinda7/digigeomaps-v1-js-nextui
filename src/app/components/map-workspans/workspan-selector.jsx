@@ -19,62 +19,30 @@ export const WorkspanSelector = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const searchParams = useSearchParams();
-  const mapType = searchParams.get("t");
-  const isSideNavOpen = searchParams.get("sn");
-
-  const selectedMapWorkspan = useSelector(
+  const selectedMap = useSelector(
     (state) => state.mapSelectorReducer.selectedMap
   );
-
-  const [activeWorskpan, setActiveWorskpan] = useState("Area");
-
-  useEffect(() => {
-    setActiveWorskpan(selectedMapWorkspan);
-  }, [selectedMapWorkspan]);
-
-  useEffect(() => {
-    switch (mapType) {
-      case "Area":
-        dispatch(setIsAreaSideNavOpen(isSideNavOpen));
-        break;
-      case "Company":
-        dispatch(setIsCompanySideNavOpen(isSideNavOpen));
-        break;
-      case "Commodity":
-        dispatch(setIsCommoditySideNavOpen(isSideNavOpen));
-        break;
-
-      default:
-        break;
-    }
-    setActiveWorskpan(selectedMapWorkspan);
-  }, [isSideNavOpen]);
-
-  useEffect(() => {
-    if (mapType) {
-      dispatch(setSelectedMap(mapType));
-    } else {
-      router.push("?t=Area");
-      dispatch(setSelectedMap("Area"));
-    }
-  }, [mapType]);
+  // console.log("call 2");
 
   return (
     <div className="h-90">
-      <div style={{ display: activeWorskpan === "Area" ? "block" : "none" }}>
+      <div style={{ display: selectedMap === "area" ? "block" : "none" }}>
         <AreaMapWorkspan />
       </div>
-      <div style={{ display: activeWorskpan === "Company" ? "block" : "none" }}>
-        <CompanyMapWorkspan />
+      <div
+        style={{ display: selectedMap === "company" ? "block" : "none" }}
+        className="absolute right-0"
+      >
+        {/* <CompanyMapWorkspan /> */}company
       </div>
       <div
-        style={{ display: activeWorskpan === "Commodity" ? "block" : "none" }}
+        style={{ display: selectedMap === "commodity" ? "block" : "none" }}
+        className="absolute right-0"
       >
-        <CommodityMapWorkspan />
+        {/* <CommodityMapWorkspan /> */}commodity
       </div>
     </div>
   );
 };
 
-//map type/lyrs/zoom/center/key
+//map type/lyrs/nav/zoom/center/key
